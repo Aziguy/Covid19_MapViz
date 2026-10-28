@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Covid19 MapViz · Analyses</title>
+    <meta
+      name="description"
+      content="Analyses hiérarchiques de la COVID-19 : répartition des cas par continent et par pays (sunburst) et devenir des cas confirmés (diagramme de Sankey)."
+    />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div data-header></div>
+    <main>
+      <div class="container">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">Analyses hiérarchiques</div>
+            <h1>Répartition et devenir des cas</h1>
+            <p>
+              Explorez la part de chaque continent et de chaque pays, puis suivez ce que deviennent les cas
+              confirmés : décès, guérisons déclarées ou cas encore actifs.
+            </p>
+          </div>
+          <div class="toolbar" data-source-switch></div>
+        </div>
+
+        <div class="notice" data-notice hidden></div>
+
+        <section class="card" style="margin-bottom: 16px">
+          <div class="card__head">
+            <div>
+              <h2>Répartition mondiale</h2>
+              <p data-sun-sub></p>
+            </div>
+            <div class="segmented" role="group" aria-label="Indicateur" data-metric></div>
+          </div>
+          <div class="card__body">
+            <div class="sunburst-layout">
+              <svg class="sunburst" data-sunburst role="img" aria-label="Diagramme sunburst"></svg>
+              <div>
+                <nav class="crumbs" aria-label="Niveau" data-crumbs></nav>
+                <ul class="legend-list" data-legend></ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-bottom: 16px">
+          <div class="card__head">
+            <div>
+              <h2>Devenir des cas confirmés</h2>
+              <p data-sankey-sub></p>
+            </div>
+            <div class="inline-legend" data-sankey-legend></div>
+          </div>
+          <div class="card__body">
+            <svg class="sankey" data-sankey role="img" aria-label="Diagramme de Sankey"></svg>
+          </div>
+          <div class="card__foot">
+            Les guérisons ne sont plus déclarées par de nombreux pays depuis 2021 : la catégorie « Actifs ou
+            non suivis » regroupe les cas sans issue renseignée.
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card__head">
+            <div>
+              <h2>Tableau détaillé</h2>
+              <p data-table-sub></p>
+            </div>
+          </div>
+          <div class="table-wrap" style="max-height: none">
+            <table class="table">
+              <thead data-thead></thead>
+              <tbody data-tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+    <div data-footer></div>
+    <div class="viz-tip" data-tip></div>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+    <script type="module" src="assets/js/analyses.js"></script>
+  </body>
+</html>
