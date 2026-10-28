@@ -21,6 +21,15 @@ jobs:
       - run: ruff check .
       - run: ruff format --check .
 
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npx --yes prettier@3.3.3 --check web
+
   test:
     runs-on: ubuntu-latest
     strategy:
