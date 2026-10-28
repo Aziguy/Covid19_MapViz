@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Covid19 MapViz · Vue d'ensemble</title>
+    <meta
+      name="description"
+      content="Tableau de bord mondial de la COVID-19 : carte interactive, indicateurs clés et classement des pays, alimenté par l'API publique disease.sh."
+    />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div data-header></div>
+    <main>
+      <div class="container">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">Tableau de bord mondial</div>
+            <h1>La COVID-19 dans le monde</h1>
+            <p>
+              Cas confirmés, décès et guérisons par pays, sur une carte interactive et un classement mis à
+              jour depuis l'API publique disease.sh.
+            </p>
+          </div>
+          <div class="toolbar" data-source-switch></div>
+        </div>
+
+        <div class="notice" data-notice hidden></div>
+
+        <section class="grid kpis" data-kpis aria-label="Indicateurs clés"></section>
+
+        <div class="grid layout-main">
+          <section class="card map-card">
+            <div class="card__head">
+              <div>
+                <h2>Carte des pays</h2>
+                <p>Surface des cercles proportionnelle à la valeur. Cliquez sur un pays pour le détail.</p>
+              </div>
+              <div class="segmented" role="group" aria-label="Indicateur de la carte" data-metric></div>
+            </div>
+            <div class="map-wrap">
+              <div class="map" id="map" role="region" aria-label="Carte interactive"></div>
+              <div class="legend" data-legend></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__head">
+              <div>
+                <h2 data-top-title>Pays les plus touchés</h2>
+                <p data-top-sub>Top 10</p>
+              </div>
+              <a href="pays.html">Tout voir</a>
+            </div>
+            <div class="card__body">
+              <ol class="rank" data-top></ol>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid cols-2" style="margin-top: 16px">
+          <section class="card">
+            <div class="card__head">
+              <div>
+                <h2 data-continent-title>Répartition par continent</h2>
+                <p data-continent-sub>Part des cas confirmés</p>
+              </div>
+            </div>
+            <div class="card__body"><div class="bars" data-continents></div></div>
+          </section>
+          <section class="card">
+            <div class="card__head">
+              <div>
+                <h2>Létalité observée</h2>
+                <p data-lethality-sub></p>
+              </div>
+            </div>
+            <div class="card__body"><div class="bars" data-lethality></div></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <div data-footer></div>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+    <script type="module" src="assets/js/overview.js"></script>
+  </body>
+</html>

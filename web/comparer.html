@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Covid19 MapViz · Comparer</title>
+    <meta
+      name="description"
+      content="Comparez l'évolution de la COVID-19 entre plusieurs pays, en valeur absolue ou rapportée à la population."
+    />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div data-header></div>
+    <main>
+      <div class="container">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">Comparaison</div>
+            <h1>Comparer des pays</h1>
+            <p>
+              Superposez jusqu'à trois pays. Rapporter les valeurs à la population permet de comparer des pays
+              de tailles différentes.
+            </p>
+          </div>
+        </div>
+
+        <section class="card">
+          <div class="card__head" style="padding-bottom: 16px; border-bottom: 1px solid var(--line)">
+            <div class="toolbar">
+              <div class="chips" data-chips></div>
+              <label>
+                <span class="sr-only">Ajouter un pays</span>
+                <select class="select" data-add>
+                  <option value="">+ Ajouter un pays</option>
+                </select>
+              </label>
+            </div>
+            <div class="toolbar">
+              <div class="segmented" role="group" aria-label="Indicateur" data-metric></div>
+              <div class="segmented" role="group" aria-label="Échelle" data-scale></div>
+            </div>
+          </div>
+          <div class="card__body">
+            <div class="chart chart--lg">
+              <canvas data-chart role="img" aria-label="Comparaison entre pays"></canvas>
+            </div>
+          </div>
+          <div class="card__foot" data-foot></div>
+        </section>
+
+        <section class="grid cols-3" style="margin-top: 16px" data-cards></section>
+      </div>
+    </main>
+    <div data-footer></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <script type="module" src="assets/js/compare.js"></script>
+  </body>
+</html>

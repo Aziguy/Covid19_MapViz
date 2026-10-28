@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Covid19 MapViz · Pays</title>
+    <meta
+      name="description"
+      content="Classement complet des pays : cas, décès, guérisons, létalité et incidence, avec la fiche détaillée et l'historique de chaque pays."
+    />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div data-header></div>
+    <main>
+      <div class="container">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">Données par pays</div>
+            <h1>Pays et territoires</h1>
+            <p>
+              Recherchez, filtrez et triez l'ensemble des pays. Sélectionnez une ligne pour afficher sa fiche
+              et son évolution.
+            </p>
+          </div>
+          <div class="toolbar" data-source-switch></div>
+        </div>
+
+        <div class="split">
+          <section class="card">
+            <div class="card__head" style="padding-bottom: 16px; border-bottom: 1px solid var(--line)">
+              <div class="toolbar">
+                <label class="search">
+                  <span class="sr-only">Rechercher un pays</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  >
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m20 20-3.5-3.5" />
+                  </svg>
+                  <input
+                    class="input"
+                    type="search"
+                    placeholder="Rechercher un pays…"
+                    data-search
+                    autocomplete="off"
+                  />
+                </label>
+                <label>
+                  <span class="sr-only">Continent</span>
+                  <select class="select" data-continent>
+                    <option value="">Tous les continents</option>
+                  </select>
+                </label>
+              </div>
+              <span class="muted" data-count></span>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr data-thead></tr>
+                </thead>
+                <tbody data-tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="card detail" data-detail aria-live="polite"></aside>
+        </div>
+      </div>
+    </main>
+    <div data-footer></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <script type="module" src="assets/js/countries.js"></script>
+  </body>
+</html>
