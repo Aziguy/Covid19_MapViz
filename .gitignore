@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Project outputs
+_site/
+output/
+*.html
+!web/**/*.html
