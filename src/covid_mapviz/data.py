@@ -23,6 +23,7 @@ SOURCE_COLUMNS = {
 SCHEMA = [
     "date",
     "country",
+    "continent",
     "cases",
     "deaths",
     "recovered",
@@ -69,6 +70,9 @@ def normalize(df: pd.DataFrame) -> pd.DataFrame:
     if (out[["cases", "deaths", "recovered"]] < 0).any().any():
         raise DataError("Les compteurs doivent être positifs")
 
+    if "continent" not in out.columns:
+        out["continent"] = None
+    out["continent"] = out["continent"].astype(object).where(out["continent"].notna(), None)
     if "date" in out.columns:
         out["date"] = pd.to_datetime(out["date"], dayfirst=True, errors="coerce").dt.date
     else:

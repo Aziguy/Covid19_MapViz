@@ -43,6 +43,7 @@ def parse_countries(payload: list[dict]) -> pd.DataFrame:
                     else None
                 ),
                 "country": item.get("country"),
+                "continent": item.get("continent") or None,
                 "cases": item.get("cases", 0),
                 "deaths": item.get("deaths", 0),
                 "recovered": item.get("recovered", 0),
