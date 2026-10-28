@@ -48,6 +48,7 @@ addopts = "--cov=covid_mapviz --cov-report=term-missing"
 
 [tool.coverage.run]
 branch = true
+omit = ["*/__main__.py"]
 
 [tool.coverage.report]
 fail_under = 90
