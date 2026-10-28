@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Covid19 MapViz · Cartes Folium</title>
+    <meta
+      name="description"
+      content="Cartes interactives générées en Python avec Folium : archive du 1er avril 2020 et dernières données disponibles."
+    />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div data-header></div>
+    <main>
+      <div class="container">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">Générées avec Python</div>
+            <h1>Cartes Folium</h1>
+            <p>
+              Cartes produites par le package <code class="code">covid_mapviz</code> à chaque déploiement :
+              une couche par indicateur, sélectionnable via le contrôle en haut à droite.
+            </p>
+          </div>
+          <div class="toolbar">
+            <a class="btn" data-open href="maps/archive-2020-04-01.html" target="_blank" rel="noopener"></a>
+          </div>
+        </div>
+
+        <section class="card">
+          <div class="tabs" role="tablist" aria-label="Cartes disponibles">
+            <button role="tab" aria-selected="true" data-map="maps/archive-2020-04-01.html">
+              Archive du 1er avril 2020
+            </button>
+            <button role="tab" aria-selected="false" data-map="maps/latest.html">Dernières données</button>
+          </div>
+          <iframe
+            class="frame"
+            title="Carte Folium"
+            src="maps/archive-2020-04-01.html"
+            loading="lazy"
+            data-frame
+          ></iframe>
+        </section>
+
+        <div class="grid cols-2" style="margin-top: 16px">
+          <section class="card">
+            <div class="card__head"><h2>Générer une carte en local</h2></div>
+            <div class="card__body">
+              <pre class="code">
+pip install -e .
+covid-mapviz map --source archive -o output/archive.html
+covid-mapviz map --source api -o output/latest.html</pre
+              >
+            </div>
+          </section>
+          <section class="card">
+            <div class="card__head"><h2>Utiliser vos propres données</h2></div>
+            <div class="card__body">
+              <p class="muted" style="margin: 0 0 12px">
+                Tout CSV (UTF-8 ou UTF-16, séparateur détecté) contenant les colonnes
+                <code class="code">Pays</code>, <code class="code">Infections</code>,
+                <code class="code">Deces</code>, <code class="code">Guerisons</code>,
+                <code class="code">Latitudes</code>, <code class="code">Longitudes</code>.
+              </p>
+              <pre class="code">covid-mapviz map --input mes_donnees.csv -o carte.html</pre>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <div data-footer></div>
+    <script type="module" src="assets/js/maps-page.js"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+name: Pages
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - name: Tests et couverture
+        run: pytest --cov-report=json
+      - name: Construction du site
+        run: covid-mapviz site -o _site
+      - name: Badge de couverture
+        run: |
+          mkdir -p _site/badges
+          python - <<'PY'
+          import json
+          pct = round(json.load(open("coverage.json"))["totals"]["percent_covered"])
+          color = "brightgreen" if pct >= 90 else "yellow" if pct >= 75 else "red"
+          badge = {"schemaVersion": 1, "label": "coverage", "message": f"{pct}%", "color": color}
+          json.dump(badge, open("_site/badges/coverage.json", "w"))
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

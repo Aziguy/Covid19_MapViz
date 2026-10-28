@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "covid-mapviz"
+version = "1.0.0"
+description = "Cartographie interactive de la COVID-19 avec Folium et un dashboard web alimenté par une API publique."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Aziguy" }]
+requires-python = ">=3.10"
+dependencies = [
+    "folium>=0.15",
+    "pandas>=2.0",
+    "requests>=2.31",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "responses>=0.25",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+covid-mapviz = "covid_mapviz.cli:main"
+
+[project.urls]
+Homepage = "https://aziguy.github.io/Covid19_MapViz/"
+Repository = "https://github.com/Aziguy/Covid19_MapViz"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+covid_mapviz = ["data/*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=covid_mapviz --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+omit = ["*/__main__.py"]
+
+[tool.coverage.report]
+fail_under = 90
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]

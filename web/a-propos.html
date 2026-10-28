@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Covid19 MapViz · À propos</title>
+    <meta
+      name="description"
+      content="Objectif du projet, sources de données, méthodologie de calcul, limites et stack technique de Covid19 MapViz."
+    />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div data-header></div>
+    <main>
+      <div class="container">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">Le projet</div>
+            <h1>À propos</h1>
+            <p>
+              Covid19 MapViz est né d'une carte Folium des données du 1er avril 2020. Il est devenu un package
+              Python testé et un tableau de bord web ouvert, alimenté par une API publique.
+            </p>
+          </div>
+        </div>
+
+        <section class="grid cols-3" style="margin-bottom: 32px">
+          <article class="card feature">
+            <div class="feature__icon" data-icon="map"></div>
+            <h3>Visualiser</h3>
+            <p>
+              Cartes interactives à l'échelle mondiale, une bulle par pays, proportionnelle à l'indicateur
+              choisi.
+            </p>
+          </article>
+          <article class="card feature">
+            <div class="feature__icon" data-icon="chart"></div>
+            <h3>Comprendre</h3>
+            <p>Séries temporelles, moyennes mobiles, létalité et incidence rapportée à la population.</p>
+          </article>
+          <article class="card feature">
+            <div class="feature__icon" data-icon="code"></div>
+            <h3>Réutiliser</h3>
+            <p>
+              Package Python <code class="code">covid_mapviz</code> avec CLI, tests et couverture, sous
+              licence MIT.
+            </p>
+          </article>
+        </section>
+
+        <div class="prose">
+          <h2>Objectif</h2>
+          <p>
+            Afficher, pour chaque pays, le nombre de personnes infectées, de décès, de guérisons et la part de
+            cas encore actifs, afin de comparer la situation sanitaire entre pays et dans le temps.
+          </p>
+
+          <h2>Sources de données</h2>
+          <ul>
+            <li>
+              <strong>API publique <a href="https://disease.sh/docs/">disease.sh</a></strong> : endpoint
+              <code>/v3/covid-19/countries</code> (cumuls par pays, d'après Worldometers) et
+              <code>/v3/covid-19/historical</code> (séries quotidiennes du
+              <a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE</a>).
+            </li>
+            <li>
+              <strong>Archive du 1er avril 2020</strong> : jeu de données d'origine du projet (191 pays),
+              embarqué dans le package et toujours disponible hors ligne.
+            </li>
+            <li>
+              <strong>Fond de carte</strong> :
+              <a href="https://www.naturalearthdata.com/">Natural Earth</a> via
+              <a href="https://github.com/topojson/world-atlas">world-atlas</a>.
+            </li>
+          </ul>
+
+          <h2>Résilience</h2>
+          <p>
+            Le tableau de bord interroge l'API en direct depuis le navigateur. En cas d'échec, il bascule sur
+            un instantané généré à chaque déploiement GitHub Pages, puis sur l'archive 2020. L'état courant
+            est indiqué en haut à droite de chaque page.
+          </p>
+
+          <h2>Méthodologie</h2>
+          <ul>
+            <li><strong>Cas actifs</strong> = cas confirmés − décès − guérisons.</li>
+            <li>
+              <strong>Létalité observée</strong> = décès / cas confirmés. Elle dépend fortement du volume de
+              tests et n'est pas un taux de mortalité de l'infection.
+            </li>
+            <li>
+              <strong>Nouveaux cas quotidiens</strong> = différence entre deux cumuls successifs ; les
+              corrections négatives sont ramenées à zéro.
+            </li>
+            <li><strong>Moyenne mobile 7 jours</strong> : lisse les effets de déclaration du week-end.</li>
+            <li>
+              <strong>Surface des bulles</strong> proportionnelle à la valeur (rayon en racine carrée), pour
+              ne pas exagérer les écarts.
+            </li>
+          </ul>
+
+          <h2>Limites</h2>
+          <p>
+            Le JHU CSSE a cessé sa collecte le 10 mars 2023 et Worldometers son suivi en avril 2024 : les
+            valeurs exposées par l'API sont les derniers cumuls publiés. Le nombre de guérisons n'est plus
+            suivi par de nombreux pays depuis août 2021. Les politiques de dépistage diffèrent fortement d'un
+            pays à l'autre.
+          </p>
+
+          <h2>Stack technique</h2>
+          <ul class="stack">
+            <li>Python 3.10+</li>
+            <li>pandas</li>
+            <li>Folium</li>
+            <li>requests</li>
+            <li>pytest</li>
+            <li>Ruff</li>
+            <li>Leaflet</li>
+            <li>Chart.js</li>
+            <li>TopoJSON</li>
+            <li>GitHub Actions</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <h2>Contribuer</h2>
+          <p>
+            Les contributions sont les bienvenues : consultez le
+            <a href="https://github.com/Aziguy/Covid19_MapViz/blob/master/CONTRIBUTING.md"
+              >guide de contribution</a
+            >
+            et ouvrez une issue ou une pull request sur
+            <a href="https://github.com/Aziguy/Covid19_MapViz">GitHub</a>.
+          </p>
+        </div>
+      </div>
+    </main>
+    <div data-footer></div>
+    <script type="module">
+      import { icon, setStatus } from "./assets/js/core.js";
+      document.querySelectorAll("[data-icon]").forEach((el) => (el.innerHTML = icon(el.dataset.icon)));
+      setStatus({ state: "live", label: "Projet open source" });
+    </script>
+  </body>
+</html>

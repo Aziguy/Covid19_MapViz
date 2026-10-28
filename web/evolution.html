@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Covid19 MapViz · Évolution</title>
+    <meta
+      name="description"
+      content="Évolution mondiale de la COVID-19 depuis janvier 2020 : cas cumulés, nouveaux cas et décès quotidiens avec moyenne mobile sur 7 jours."
+    />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div data-header></div>
+    <main>
+      <div class="container">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">Série temporelle mondiale</div>
+            <h1>Évolution de la pandémie</h1>
+            <p>
+              Cumuls et nouveaux cas quotidiens à l'échelle mondiale, issus des séries Johns Hopkins (JHU
+              CSSE) servies par disease.sh.
+            </p>
+          </div>
+          <div class="toolbar">
+            <div class="segmented" role="group" aria-label="Période" data-range></div>
+          </div>
+        </div>
+
+        <section class="grid kpis" data-kpis aria-label="Faits marquants"></section>
+
+        <section class="card" style="margin-bottom: 16px">
+          <div class="card__head">
+            <div>
+              <h2>Cas confirmés cumulés</h2>
+              <p data-period></p>
+            </div>
+          </div>
+          <div class="card__body">
+            <div class="chart chart--lg">
+              <canvas data-chart="cumulative" role="img" aria-label="Cas confirmés cumulés"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid cols-2">
+          <section class="card">
+            <div class="card__head">
+              <div>
+                <h2>Nouveaux cas quotidiens</h2>
+                <p>Valeur brute et moyenne mobile 7 jours</p>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="chart">
+                <canvas data-chart="cases" role="img" aria-label="Nouveaux cas quotidiens"></canvas>
+              </div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card__head">
+              <div>
+                <h2>Décès quotidiens</h2>
+                <p>Valeur brute et moyenne mobile 7 jours</p>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="chart">
+                <canvas data-chart="deaths" role="img" aria-label="Décès quotidiens"></canvas>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <div data-footer></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <script type="module" src="assets/js/evolution.js"></script>
+  </body>
+</html>
