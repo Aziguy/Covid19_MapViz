@@ -124,7 +124,7 @@ Tout CSV en UTF-8 ou UTF-16 (séparateur détecté automatiquement) contenant le
 from covid_mapviz import build_map, load_archive, summarize
 from covid_mapviz.api import fetch_countries
 
-df = load_archive()            # ou fetch_countries() pour les dernières données
+df = load_archive()  # ou fetch_countries() pour les dernières données
 print(summarize(df))
 build_map(df, subtitle="Archive du 1er avril 2020").save("carte.html")
 ```
