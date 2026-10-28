@@ -28,6 +28,7 @@ def build_site(out_dir: Path, web_dir: Path = WEB_DIR, live: bool = True) -> lis
         shutil.rmtree(out_dir)
     shutil.copytree(web_dir, out_dir)
 
+    (out_dir / "maps").mkdir(exist_ok=True)
     archive = load_archive()
     write_dataset(archive, out_dir / "data" / "archive-2020-04-01.json", "archive")
     build_map(archive, subtitle="Archive du 1er avril 2020").save(
