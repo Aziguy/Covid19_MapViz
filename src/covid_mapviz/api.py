@@ -17,7 +17,7 @@ class ApiError(RuntimeError):
     """Échec d'appel ou réponse inattendue de l'API."""
 
 
-def _get(path: str, session: requests.Session | None = None, **params) -> object:
+def get_json(path: str, session: requests.Session | None = None, **params) -> object:
     http = session or requests.Session()
     try:
         response = http.get(f"{API_URL}/{path}", params=params or None, timeout=TIMEOUT)
@@ -62,4 +62,12 @@ def parse_countries(payload: list[dict]) -> pd.DataFrame:
 
 def fetch_countries(session: requests.Session | None = None) -> pd.DataFrame:
     """Dernières données par pays."""
-    return parse_countries(_get("countries", session))
+    return parse_countries(get_json("countries", session))
+
+
+def fetch_history(session: requests.Session | None = None) -> dict:
+    """Série mondiale cumulée brute `{cases, deaths, recovered}` indexée par date."""
+    payload = get_json("historical/all", session, lastdays="all")
+    if not isinstance(payload, dict) or "cases" not in payload:
+        raise ApiError("Réponse inattendue : série temporelle attendue")
+    return payload

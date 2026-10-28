@@ -27,7 +27,9 @@ def test_build_site_offline(tmp_path, web_dir):
 
 def test_build_site_live(tmp_path, web_dir, df, monkeypatch):
     monkeypatch.setattr(api, "fetch_countries", lambda: df)
-    assert site.build_site(tmp_path / "out", web_dir) == ["archive", "latest"]
+    monkeypatch.setattr(api, "fetch_history", lambda: {"cases": {}})
+    assert site.build_site(tmp_path / "out", web_dir) == ["archive", "latest", "history"]
+    assert (tmp_path / "out" / "data" / "history.json").exists()
     assert (tmp_path / "out" / "maps" / "latest.html").exists()
     assert json.loads((tmp_path / "out" / "data" / "latest.json").read_text())["source"]
 
@@ -37,5 +39,7 @@ def test_build_site_live_failure(tmp_path, web_dir, monkeypatch, capsys):
         raise api.ApiError("down")
 
     monkeypatch.setattr(api, "fetch_countries", fail)
+    monkeypatch.setattr(api, "fetch_history", fail)
     assert site.build_site(tmp_path / "out", web_dir) == ["archive"]
-    assert "down" in capsys.readouterr().out
+    out = capsys.readouterr().out
+    assert "Carte live ignorée" in out and "Historique ignoré" in out

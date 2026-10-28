@@ -50,3 +50,18 @@ def test_parse_countries_without_active_or_date(api_payload):
     df = api.parse_countries(api_payload)
     assert df.loc[0, "active"] == 90
     assert df["date"].isna().all()
+
+
+@responses.activate
+def test_fetch_history():
+    payload = {"cases": {"1/22/20": 1}, "deaths": {"1/22/20": 0}, "recovered": {"1/22/20": 0}}
+    responses.get(f"{api.API_URL}/historical/all", json=payload)
+    assert api.fetch_history() == payload
+    assert responses.calls[0].request.params == {"lastdays": "all"}
+
+
+@responses.activate
+def test_fetch_history_invalid():
+    responses.get(f"{api.API_URL}/historical/all", json=["x"])
+    with pytest.raises(api.ApiError):
+        api.fetch_history()

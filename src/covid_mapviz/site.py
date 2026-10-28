@@ -48,4 +48,11 @@ def build_site(out_dir: Path, web_dir: Path = WEB_DIR, live: bool = True) -> lis
                 str(out_dir / "maps" / "latest.html")
             )
             built.append("latest")
+        try:
+            history = api.fetch_history()
+        except api.ApiError as exc:
+            print(f"Historique ignoré : {exc}")
+        else:
+            (out_dir / "data" / "history.json").write_text(json.dumps(history), encoding="utf-8")
+            built.append("history")
     return built
