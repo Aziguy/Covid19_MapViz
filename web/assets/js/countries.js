@@ -127,10 +127,14 @@ async function renderDetail() {
     </dl>
     <div class="card__head">
       <div><h2>Historique</h2><p>Cas confirmés, données JHU CSSE</p></div>
-      <div class="segmented" role="group" aria-label="Vue" data-view>
+      ${
+        live
+          ? `<div class="segmented" role="group" aria-label="Vue" data-view>
         <button type="button" data-v="daily" aria-pressed="${state.view === "daily"}">Quotidien</button>
         <button type="button" data-v="cumulative" aria-pressed="${state.view === "cumulative"}">Cumul</button>
-      </div>
+      </div>`
+          : ""
+      }
     </div>
     <div class="card__body"><div class="chart chart--sm" data-history><div class="skeleton" style="height:100%"></div></div></div>`;
 

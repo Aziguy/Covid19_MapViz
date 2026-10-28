@@ -112,7 +112,7 @@ function renderMap() {
       ${steps
         .map(
           ([v, r]) =>
-            `<div class="legend__size"><i style="width:${r * 2}px;height:${r * 2}px"></i>${compact(v)}</div>`,
+            `<div class="legend__size"><i style="width:${r * 2}px;height:${r * 2}px"></i>${compact(Math.round(v))}</div>`,
         )
         .join("")}
     </div>`;
