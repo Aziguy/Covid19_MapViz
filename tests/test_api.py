@@ -14,6 +14,7 @@ def test_fetch_countries(api_payload):
     assert df["country"].tolist() == ["France", "Japan"]
     assert df.loc[0, "date"] == date(2023, 11, 14)
     assert df.loc[1, "active"] == 495
+    assert df["continent"].tolist() == ["Europe", None]
 
 
 @responses.activate

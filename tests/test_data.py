@@ -21,6 +21,7 @@ def test_normalize_schema_and_order(df):
     assert list(df.columns) == SCHEMA
     assert df["country"].tolist() == ["Italie", "France", "Tuvalu"]
     assert df.loc[0, "date"] == date(2020, 4, 1)
+    assert df["continent"].isna().all()
 
 
 def test_normalize_derived_values(df):
@@ -111,4 +112,5 @@ def test_top(df):
 def test_to_records_is_json_serializable(df):
     records = to_records(df)
     assert records[0]["date"] == "2020-04-01"
-    json.dumps(records)
+    assert records[0]["continent"] is None
+    assert "NaN" not in json.dumps(records)

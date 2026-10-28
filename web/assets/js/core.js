@@ -18,11 +18,21 @@ export const CONTINENTS = {
   "Australia-Oceania": "Océanie",
 };
 
+export const CONTINENT_COLORS = {
+  Europe: "--cat-1",
+  Asia: "--cat-2",
+  "North America": "--cat-3",
+  "South America": "--cat-4",
+  Africa: "--cat-5",
+  "Australia-Oceania": "--cat-6",
+};
+
 const PAGES = [
   ["index.html", "Vue d'ensemble"],
   ["pays.html", "Pays"],
   ["evolution.html", "Évolution"],
   ["comparer.html", "Comparer"],
+  ["analyses.html", "Analyses"],
   ["cartes.html", "Cartes Folium"],
   ["a-propos.html", "À propos"],
 ];
@@ -198,7 +208,7 @@ function fromSnapshot(c) {
     name: c.country,
     nameEn: c.country,
     flag: null,
-    continent: null,
+    continent: c.continent ?? null,
     lat: c.lat,
     lon: c.lon,
     cases: c.cases,

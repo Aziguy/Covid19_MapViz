@@ -30,6 +30,7 @@ def api_payload():
         {
             "updated": 1700000000000,
             "country": "France",
+            "continent": "Europe",
             "countryInfo": {"lat": 46, "long": 2},
             "cases": 1000,
             "deaths": 10,
