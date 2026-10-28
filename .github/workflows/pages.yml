@@ -40,7 +40,7 @@ jobs:
           badge = {"schemaVersion": 1, "label": "coverage", "message": f"{pct}%", "color": color}
           json.dump(badge, open("_site/badges/coverage.json", "w"))
           PY
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
