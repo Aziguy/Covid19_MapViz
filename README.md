@@ -14,6 +14,7 @@
 [![Folium](https://img.shields.io/badge/Folium-0.15%2B-77B829?logo=leaflet&logoColor=white)](https://python-visualization.github.io/folium/)
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?logo=leaflet&logoColor=white)](https://leafletjs.com/)
 [![Chart.js](https://img.shields.io/badge/Chart.js-4-FF6384?logo=chartdotjs&logoColor=white)](https://www.chartjs.org/)
+[![D3](https://img.shields.io/badge/D3.js-7-F9A03C?logo=d3dotjs&logoColor=white)](https://d3js.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![API](https://img.shields.io/badge/API-disease.sh-E34948)](https://disease.sh/docs/)
 
@@ -56,6 +57,7 @@ Le projet est parti d'une carte Folium des données du **1er avril 2020**. Il pr
 | **Pays** | Tableau triable et filtrable, recherche sans accents, fiche pays avec historique quotidien |
 | **Évolution** | Cumul mondial, nouveaux cas et décès quotidiens avec moyenne mobile 7 jours, filtres par année |
 | **Comparer** | Jusqu'à 3 pays, valeurs absolues ou pour 1 million d'habitants, lien partageable |
+| **Analyses** | Sunburst continents et pays (zoom au clic), diagramme de Sankey du devenir des cas, tableau détaillé |
 | **Cartes Folium** | Cartes générées en Python à chaque déploiement (archive 2020 et dernières données) |
 | **À propos** | Objectif, sources, méthodologie, limites et stack |
 
@@ -68,6 +70,8 @@ Points transverses : thème clair, sombre ou système, responsive mobile, access
 | <img src="docs/screenshots/overview-dark.png" alt="Vue d'ensemble en thème sombre"> | <img src="docs/screenshots/countries.png" alt="Tableau des pays"> |
 | **Évolution** | **Comparer** |
 | <img src="docs/screenshots/evolution.png" alt="Évolution mondiale"> | <img src="docs/screenshots/compare.png" alt="Comparaison de pays"> |
+| **Analyses : sunburst** | **Analyses : Sankey** |
+| <img src="docs/screenshots/sunburst.png" alt="Sunburst continents et pays"> | <img src="docs/screenshots/sankey.png" alt="Diagramme de Sankey du devenir des cas"> |
 
 <p align="center"><img src="docs/screenshots/mobile.png" alt="Version mobile" width="280"></p>
 
@@ -171,6 +175,8 @@ flowchart LR
 - **Létalité observée** = décès / cas confirmés
 - **Nouveaux cas** = différence de deux cumuls successifs, corrections négatives ramenées à zéro
 - **Bulles** : surface proportionnelle à la valeur
+- **Sunburst** : angle proportionnel à la valeur ; au-delà des pays les plus touchés, les autres sont regroupés
+- **Sankey** : cas confirmés répartis en décès, guérisons déclarées et cas actifs ou non suivis
 
 > [!NOTE]
 > Le JHU CSSE a arrêté sa collecte le 10 mars 2023 et Worldometers son suivi en avril 2024. Les valeurs servies par l'API sont les derniers cumuls publiés.
