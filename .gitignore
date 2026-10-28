@@ -133,3 +133,4 @@ _site/
 output/
 *.html
 !web/**/*.html
+coverage.json
