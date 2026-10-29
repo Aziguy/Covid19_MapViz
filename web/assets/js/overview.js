@@ -154,6 +154,9 @@ function applyView() {
   $("#map").hidden = is3d;
   $("[data-globe]").hidden = !is3d;
   $("[data-legend]").classList.toggle("legend--3d", is3d);
+  $("[data-map-sub]").textContent = is3d
+    ? "Hauteur des barres proportionnelle à la valeur. Cliquez sur une barre pour la fiche pays."
+    : "Surface des cercles proportionnelle à la valeur. Cliquez sur un pays pour le détail.";
   document
     .querySelectorAll("[data-view] [data-v]")
     .forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === state.view));
