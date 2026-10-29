@@ -15,6 +15,7 @@
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?logo=leaflet&logoColor=white)](https://leafletjs.com/)
 [![Chart.js](https://img.shields.io/badge/Chart.js-4-FF6384?logo=chartdotjs&logoColor=white)](https://www.chartjs.org/)
 [![D3](https://img.shields.io/badge/D3.js-7-F9A03C?logo=d3dotjs&logoColor=white)](https://d3js.org/)
+[![globe.gl](https://img.shields.io/badge/globe.gl-2.46-0B1626?logo=threedotjs&logoColor=white)](https://globe.gl/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![API](https://img.shields.io/badge/API-disease.sh-E34948)](https://disease.sh/docs/)
 
@@ -53,7 +54,7 @@ Le projet est parti d'une carte Folium des données du **1er avril 2020**. Il pr
 
 | Page | Contenu |
 | --- | --- |
-| **Vue d'ensemble** | Indicateurs clés, carte à bulles par indicateur, top 10, répartition par continent, létalité |
+| **Vue d'ensemble** | Indicateurs clés, carte à bulles ou globe 3D par indicateur, top 10, répartition par continent, létalité |
 | **Pays** | Tableau triable et filtrable, recherche sans accents, fiche pays avec historique quotidien |
 | **Évolution** | Cumul mondial, nouveaux cas et décès quotidiens avec moyenne mobile 7 jours, filtres par année |
 | **Comparer** | Jusqu'à 3 pays, valeurs absolues ou pour 1 million d'habitants, lien partageable |
@@ -70,8 +71,10 @@ Points transverses : thème clair, sombre ou système, responsive mobile, access
 | <img src="docs/screenshots/overview-dark.png" alt="Vue d'ensemble en thème sombre"> | <img src="docs/screenshots/countries.png" alt="Tableau des pays"> |
 | **Évolution** | **Comparer** |
 | <img src="docs/screenshots/evolution.png" alt="Évolution mondiale"> | <img src="docs/screenshots/compare.png" alt="Comparaison de pays"> |
-| **Analyses : sunburst** | **Analyses : Sankey** |
-| <img src="docs/screenshots/sunburst.png" alt="Sunburst continents et pays"> | <img src="docs/screenshots/sankey.png" alt="Diagramme de Sankey du devenir des cas"> |
+| **Globe 3D** | **Analyses : sunburst** |
+| <img src="docs/screenshots/globe.png" alt="Globe 3D interactif"> | <img src="docs/screenshots/sunburst.png" alt="Sunburst continents et pays"> |
+| **Analyses : Sankey** | |
+| <img src="docs/screenshots/sankey.png" alt="Diagramme de Sankey du devenir des cas"> | |
 
 <p align="center"><img src="docs/screenshots/mobile.png" alt="Version mobile" width="280"></p>
 
@@ -200,6 +203,12 @@ Le workflow [`pages.yml`](.github/workflows/pages.yml) s'exécute à chaque push
 3. publie `_site/` sur GitHub Pages.
 
 Activation unique : **Settings → Pages → Build and deployment → Source : GitHub Actions**.
+
+## Dépendances
+
+Dependabot propose chaque lundi les mises à jour Python et GitHub Actions. Les versions mineures et correctives sont regroupées dans une seule PR par écosystème ; chaque version majeure arrive dans sa propre PR pour une revue dédiée.
+
+Le job `dependabot` de la CI fusionne automatiquement (squash) les PR mineures et correctives dès que le lint et les tests passent. Les versions majeures restent à valider manuellement. Une fusion faite par le jeton GitHub ne relance pas le déploiement Pages : le build hebdomadaire du lundi s'en charge.
 
 ## Feuille de route
 

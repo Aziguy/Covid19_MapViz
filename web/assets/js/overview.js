@@ -17,10 +17,13 @@ import {
   totals,
 } from "./core.js";
 import { bubbleRadius, createWorldMap } from "./worldmap.js";
+import { createGlobe, webglAvailable } from "./globe.js";
 
 const $ = (s) => document.querySelector(s);
-const state = { data: null, metric: getPref("metric", "cases") };
+const state = { data: null, metric: getPref("metric", "cases"), view: getPref("view", "2d") };
 if (!METRICS[state.metric]) state.metric = "cases";
+if (state.view !== "3d" || !webglAvailable()) state.view = "2d";
+let globe = null;
 
 const { map } = createWorldMap($("#map"));
 const bubbles = window.L.layerGroup().addTo(map);
@@ -106,6 +109,7 @@ function renderMap() {
         .addTo(bubbles);
     });
 
+  if (state.view === "3d") return renderLegend();
   const steps = [max, max / 4, max / 25].map((v) => [v, bubbleRadius(v, max, maxRadius)]);
   $("[data-legend]").innerHTML = `<div class="legend__title">${METRICS[m].label}</div>
     <div class="legend__sizes" style="--legend-color:${color}">
@@ -116,6 +120,61 @@ function renderMap() {
         )
         .join("")}
     </div>`;
+}
+
+function renderLegend() {
+  if (state.view !== "3d") return;
+  $("[data-legend]").innerHTML = `<div class="legend__title">${METRICS[state.metric].label}</div>
+    <div>Hauteur des barres proportionnelle à la valeur.<br>Glisser pour tourner, molette pour zoomer.</div>`;
+}
+
+async function renderGlobe() {
+  if (state.view !== "3d" || !state.data) return;
+  const el = $("[data-globe]");
+  if (!globe) {
+    el.innerHTML = `<div class="globe-status">Chargement du globe…</div>`;
+    globe = createGlobe(el, {
+      onSelect: (c) => (location.href = `pays.html#${encodeURIComponent(c.id)}`),
+    }).catch((err) => {
+      console.warn(err);
+      el.innerHTML = `<div class="globe-status">Globe 3D indisponible sur cet appareil.</div>`;
+      return null;
+    });
+    const g = await globe;
+    el.querySelector(".globe-status")?.remove();
+    if (!g) return;
+  }
+  const g = await globe;
+  g?.update(state.data.rows, state.metric);
+  renderLegend();
+}
+
+function applyView() {
+  const is3d = state.view === "3d";
+  $("#map").hidden = is3d;
+  $("[data-globe]").hidden = !is3d;
+  $("[data-legend]").classList.toggle("legend--3d", is3d);
+  $("[data-map-sub]").textContent = is3d
+    ? "Hauteur des barres proportionnelle à la valeur. Cliquez sur une barre pour la fiche pays."
+    : "Surface des cercles proportionnelle à la valeur. Cliquez sur un pays pour le détail.";
+  document
+    .querySelectorAll("[data-view] [data-v]")
+    .forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === state.view));
+}
+
+function setView(view) {
+  state.view = view;
+  setPref("view", view);
+  applyView();
+  if (!state.data) return;
+  if (view === "3d") {
+    globe?.then((g) => g?.resume());
+    renderGlobe();
+  } else {
+    globe?.then((g) => g?.pause());
+    map.invalidateSize();
+    renderMap();
+  }
 }
 
 function renderMetricSwitch() {
@@ -214,6 +273,7 @@ function renderAll() {
   renderKpis(state.data.rows, state.data.state === "live");
   renderMetricSwitch();
   renderMap();
+  renderGlobe();
   renderTop();
   renderContinents();
   renderLethality();
@@ -245,9 +305,21 @@ $("[data-metric]").addEventListener("click", (e) => {
   setPref("metric", state.metric);
   renderMetricSwitch();
   renderMap();
+  renderGlobe();
   renderTop();
 });
 
+if (!webglAvailable()) $("[data-view]").hidden = true;
+applyView();
+$("[data-view]").addEventListener("click", (e) => {
+  const v = e.target.closest("[data-v]")?.dataset.v;
+  if (v && v !== state.view) setView(v);
+});
+
 sourceSwitch($("[data-source-switch]"), load);
-onThemeChange(() => state.data && renderMap());
+onThemeChange(() => {
+  if (!state.data) return;
+  renderMap();
+  globe?.then((g) => g?.update());
+});
 load();

@@ -43,12 +43,21 @@
             <div class="card__head">
               <div>
                 <h2>Carte des pays</h2>
-                <p>Surface des cercles proportionnelle à la valeur. Cliquez sur un pays pour le détail.</p>
+                <p data-map-sub>
+                  Surface des cercles proportionnelle à la valeur. Cliquez sur un pays pour le détail.
+                </p>
               </div>
-              <div class="segmented" role="group" aria-label="Indicateur de la carte" data-metric></div>
+              <div class="toolbar">
+                <div class="segmented" role="group" aria-label="Indicateur de la carte" data-metric></div>
+                <div class="segmented" role="group" aria-label="Type de vue" data-view>
+                  <button type="button" data-v="2d" aria-pressed="true">Carte</button>
+                  <button type="button" data-v="3d" aria-pressed="false">Globe 3D</button>
+                </div>
+              </div>
             </div>
             <div class="map-wrap">
               <div class="map" id="map" role="region" aria-label="Carte interactive"></div>
+              <div class="globe" data-globe role="region" aria-label="Globe 3D interactif" hidden></div>
               <div class="legend" data-legend></div>
             </div>
           </section>
