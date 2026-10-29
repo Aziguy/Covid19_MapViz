@@ -208,6 +208,8 @@ Activation unique : **Settings → Pages → Build and deployment → Source : G
 
 Dependabot propose chaque lundi les mises à jour Python et GitHub Actions. Les versions mineures et correctives sont regroupées dans une seule PR par écosystème ; chaque version majeure arrive dans sa propre PR pour une revue dédiée.
 
+Le job `dependabot` de la CI fusionne automatiquement (squash) les PR mineures et correctives dès que le lint et les tests passent. Les versions majeures restent à valider manuellement. Une fusion faite par le jeton GitHub ne relance pas le déploiement Pages : le build hebdomadaire du lundi s'en charge.
+
 ## Feuille de route
 
 - [ ] Carte choroplèthe par pays (codes ISO)
